@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SOMBRAS DO PASSADO — Site Oficial</title>
+    <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,700;1,400&family=Inter:wght@300;400;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --black: #050505;
+            --grey-dirty: #2a2a2a;
+            --rust: #5c2e1b;
+            --sick-green: #1a221a;
+            --text-faded: #9a9a9a;
+            --white-ghost: #d0d0d0;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
+
+        body {
+            background-color: var(--black);
+            color: var(--text-faded);
+            font-family: 'Inter', sans-serif;
+            overflow-x: hidden;
+            line-height: 1.8;
+        }
+
+        /* TEXTURAS SILENT HILL */
+        .grain {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/asfalt-dark.png');
+            opacity: 0.15; pointer-events: none; z-index: 9999;
+        }
+
+        .fog-bg {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 20%, var(--black) 90%);
+            z-index: 5; pointer-events: none;
+        }
+
+        /* NAVEGAÇÃO LATERAL (PROGRESSO) */
+        .page-counter {
+            position: fixed; left: 20px; top: 50%; transform: translateY(-50%);
+            z-index: 100; font-family: 'Crimson Text', serif; color: var(--rust);
+            font-size: 0.8rem; letter-spacing: 2px; writing-mode: vertical-rl;
+            opacity: 0.5;
+        }
+
+        /* CONTAINER DO LIVRO */
+        #book {
+            max-width: 700px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 10;
+            padding-bottom: 200px;
+        }
+
+        .book-page {
+            min-height: 80vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 20px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 1.5s ease;
+            border-bottom: 1px solid rgba(92, 46, 27, 0.1);
+        }
+
+        .book-page.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .page-num {
+            font-family: 'Crimson Text', serif;
+            color: var(--rust);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            margin-bottom: 30px;
+            display: block;
+        }
+
+        .content {
+            font-size: 1.15rem;
+            text-align: justify;
+            color: var(--white-ghost);
+        }
+
+        .content p { margin-bottom: 20px; }
+
+        .italic-phrase {
+            font-style: italic;
+            color: var(--rust);
+            margin: 30px 0;
+            display: block;
+            text-align: center;
+        }
+
+        /* TÍTULOS DE VOLUME */
+        .volume-header {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        .volume-header h1 {
+            font-family: 'Crimson Text', serif;
+            font-size: 3rem;
+            color: var(--white-ghost);
+            letter-spacing: 10px;
+            margin-bottom: 10px;
+        }
+
+        .volume-header p {
+            color: var(--rust);
+            text-transform: uppercase;
+            letter-spacing: 5px;
+        }
+
+        /* EFEITOS DE INTERAÇÃO */
+        .glitch-hover:hover {
+            animation: glitch 0.3s infinite;
+            color: var(--rust);
+            cursor: pointer;
+        }
+
+        @keyframes glitch {
+            0% { transform: translate(0); }
+            20% { transform: translate(-2px, 2px); }
+            40% { transform: translate(-2px, -2px); }
+            60% { transform: translate(2px, 2px); }
+            80% { transform: translate(2px, -2px); }
+            100% { transform: translate(0); }
+        }
+
+        #final-screen {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: #000;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="grain"></div>
+    <div class="fog-bg"></div>
+    <div class="page-counter" id="scrollProgress">PÁGINA 1 — VOLUME I</div>
+
+    <!-- TELA DE ENTRADA -->
+    <section class="volume-header">
+        <h1 class="glitch-hover">SOMBRAS DO PASSADO</h1>
+        <p>Volume I: A Estrada Que Não Para</p>
+        <p style="font-size: 0.6rem; margin-top: 50px; opacity: 0.4;">Role para baixo para entrar na neblina</p>
+    </section>
+
+    <!-- LIVRO: 60 PÁGINAS -->
+    <main id="book">
+        
+        <!-- PÁGINAS 1 A 10 -->
+        <div class="book-page" id="p1"><span class="page-num">Página 1</span><div class="content"><p>A chuva começou antes que qualquer um dos dois percebesse. Não foi o barulho que chamou atenção, mas o modo como o mundo pareceu encolher. O asfalto ficou escuro, a noite mais próxima, e os faróis passaram a cortar o vazio em linhas trêmulas. Ethan dirigia rápido demais para aquela estrada.</p></div></div>
+        
+        <div class="book-page" id="p2"><span class="page-num">Página 2</span><div class="content"><p>O copo ainda estava na memória do corpo. No peso atrás dos olhos, no atraso mínimo entre o pensamento e o movimento das mãos. Ele dizia a si mesmo que estava bem. Dizia porque precisava dizer. "Só mais alguns quilômetros", murmurou.</p></div></div>
+
+        <div class="book-page" id="p3"><span class="page-num">Página 3</span><div class="content"><p>Do outro lado da estrada, Daniel dirigia como quem foge de um lugar que ainda está dentro dele. A discussão com Marcia não havia terminado. Ela nunca terminava. As palavras ainda ecoavam no caminhão, presas entre o volante e o para-brisa.</p></div></div>
+
+        <div class="book-page" id="p4"><span class="page-num">Página 4</span><div class="content"><p>Houve um momento — curto, impossível de medir — em que ambos sentiram a mesma coisa. Um aperto no peito. Ethan piscou forte. A pista pareceu se mover. As linhas brancas dançaram. Ele corrigiu o volante tarde demais.</p></div></div>
+
+        <div class="book-page" id="p5"><span class="page-num">Página 5</span><div class="content"><p>O impacto não foi uma explosão. Foi um rasgo. Metal contra metal. Vidro estilhaçando. O som seco de algo sendo arremessado para fora da estrada. E então… silêncio. O mundo voltou em fragmentos.</p></div></div>
+
+        <div class="book-page" id="p6"><span class="page-num">Página 6</span><div class="content"><p>Ethan sentiu o gosto de sangue. Daniel saiu cambaleando do caminhão. A estrada estava vazia. Nenhum carro. Nenhuma luz. Apenas neblina. Eles se viram sob a luz trêmula dos faróis quebrados. "Você tá maluco?!", Daniel gritou.</p></div></div>
+
+        <div class="book-page" id="p7"><span class="page-num">Página 7</span><div class="content"><p>Houve um som. Baixo. Quase inexistente. Um estalo. Algo se mexeu na lateral da estrada. Um vulto pequeno, jogado entre o mato e o asfalto. "Você ouviu isso?", Ethan perguntou. Daniel hesitou: "Ouvi o quê?".</p></div></div>
+
+        <div class="book-page" id="p8"><span class="page-num">Página 8</span><div class="content"><p>"Deve ter sido um animal", Daniel completou rápido demais. Eles assentiram. Ambos sabiam que não era verdade. Daniel deu meia-volta e não olhou para o mato. O medo procurava algo onde se agarrar.</p></div></div>
+
+        <div class="book-page" id="p9"><span class="page-num">Página 9</span><div class="content"><p>Os motores ligaram quase ao mesmo tempo. Daniel saiu primeiro, os pneus jogando água para trás. Ethan demorou mais alguns segundos. As mãos tremiam ao girar a chave. "Foi só um toque", repetiu para si mesmo.</p></div></div>
+
+        <div class="book-page" id="p10"><span class="page-num">Página 10</span><div class="content"><p>Eles nunca procuraram a ajuda. Nunca chamaram a polícia. Nunca voltaram. Mas sabiam. Lá no fundo — onde nenhuma justificativa alcança —, sempre souberam. E a estrada nunca esqueceu.</p></div></div>
+
+        <!-- PÁGINAS 11 A 20 -->
+        <div class="book-page" id="p11"><span class="page-num">Página 11</span><div class="content"><p>Daniel chegou em casa antes do amanhecer. A casa dormia. Marcia não. Ela estava sentada à mesa da cozinha, a xícara fria entre as mãos. "Você bateu o caminhão?", disse sem levantar os olhos.</p></div></div>
+
+        <div class="book-page" id="p12"><span class="page-num">Página 12</span><div class="content"><p>Ethan demorou três dias para tocar no assunto dentro da cabeça. Marta percebeu as pequenas coisas: o copo recusado, a luz do banheiro acesa. "Você está estranho", ela disse no escuro do quarto.</p></div></div>
+
+        <div class="book-page" id="p13"><span class="page-num">Página 13</span><div class="content"><p>Alice, filha de Daniel, desenhou algo no papel no café da manhã. Uma estrada. Um caminhão. Um risco escuro atravessando tudo. "O que é isso?", Marcia perguntou. "Um lugar que dói", Alice respondeu.</p></div></div>
+
+        <div class="book-page" id="p14"><span class="page-num">Página 14</span><div class="content"><p>Na primeira noite, Daniel sonhou com faróis. Quando acordou, havia marcas de mãos no vidro do quarto. Não por fora. Por dentro. Ele piscou e elas sumiram, mas o frio permaneceu.</p></div></div>
+
+        <div class="book-page" id="p15"><span class="page-num">Página 15</span><div class="content"><p>Ethan começou a ouvir passos. Leves. Curtos. Ao abrir a porta do quarto da filha, Rely, encontrou-a dormindo, mas seu ursinho no chão estava úmido. O cheiro de água parada começou a impregnar a casa.</p></div></div>
+
+        <div class="book-page" id="p16"><span class="page-num">Página 16</span><div class="content"><p>A cidade começou a mudar. Os sons ficaram errados. O eco vinha antes da voz. Daniel percebeu isso no posto. "Esse lugar sempre foi tão vazio?", perguntou. O frentista apenas o encarou com olhos opacos.</p></div></div>
+
+        <div class="book-page" id="p17"><span class="page-num">Página 17</span><div class="content"><p>Marta encontrou a garrafa escondida no carro de Ethan. Não disse nada. Mas à noite, Ethan sentiu o cheiro de álcool saindo de seus próprios poros, mesmo sem ter bebido uma gota.</p></div></div>
+
+        <div class="book-page" id="p18"><span class="page-num">Página 18</span><div class="content"><p>Alice começou a falar sozinha. "Ela está triste", disse certa noite. "Quem?", Marcia perguntou. Alice apontou para a janela escura. "A menina da estrada". Marcia sentiu o sangue gelar.</p></div></div>
+
+        <div class="book-page" id="p19"><span class="page-num">Página 19</span><div class="content"><p>Daniel passou novamente pela estrada do acidente. Não planejou, mas o caminhão parecia saber o caminho. A neblina estava mais espessa. Ele teve certeza de ver algo parado no acostamento. Pequeno. Imóvel.</p></div></div>
+
+        <div class="book-page" id="p20"><span class="page-num">Página 20</span><div class="content"><p>Ethan acordou com o som de algo arranhando a porta. Quando abriu, encontrou marcas no chão. Pequenas. Molhadas. Pegadas que levavam para lugar nenhum dentro de um corredor sem saída.</p></div></div>
+
+        <!-- PÁGINAS 21 A 60 (Continuando a sequência...) -->
+        <!-- Nota: Para brevidade do código, segui o fluxo narrativo para as 60 páginas totais -->
+        
+        <div class="book-page" id="p21"><span class="page-num">Página 21</span><div class="content"><p>O caminhão de Daniel morreu no meio da estrada. O silêncio que se seguiu foi absoluto. Ele desceu para checar o motor, mas seus olhos foram atraídos para o matagal onde o "animal" teria caído.</p></div></div>
+
+        <div class="book-page" id="p22"><span class="page-num">Página 22</span><div class="content"><p>Ethan encontrou um arranhão novo no carro. Não era de outro veículo. Eram marcas de unhas. Pequenas unhas que arrancaram a tinta até chegar ao metal virgem. "Por que você não parou?", uma voz pareceu soprar.</p></div></div>
+
+        <div class="book-page" id="p23"><span class="page-num">Página 23</span><div class="content"><p>Alice parou de ir à escola. Ela ficava sentada no quintal olhando para o horizonte. Marcia encontrou barro seco no parapeito da janela. Pegadas de uma criança que não era Alice.</p></div></div>
+
+        <div class="book-page" id="p24"><span class="page-num">Página 24</span><div class="content"><p>Daniel entrou em uma rua que nunca vira antes. As placas estavam enferrujadas. RUA DO RETORNO. Ele tentou dar ré, mas a rua parecia se alongar atrás dele, como um elástico sendo puxado.</p></div></div>
+
+        <div class="book-page" id="p25"><span class="page-num">Página 25</span><div class="content"><p>No tribunal, Ethan não conseguia ler os processos. As palavras se transformavam em borrões de tinta que pareciam sangue. No vidro da sala, ele viu o reflexo de uma menina parada bem atrás dele.</p></div></div>
+
+        <div class="book-page" id="p26"><span class="page-num">Página 26</span><div class="content"><p>Marcia seguiu Alice até a borda da cidade. "Ela fica aqui", disse Alice. A neblina engolia a estrada. "A que ninguém ajudou". Marcia sentiu o peso do segredo de Daniel sem que ele dissesse uma palavra.</p></div></div>
+
+        <div class="book-page" id="p27"><span class="page-num">Página 27</span><div class="content"><p>Daniel encontrou marcas no asfalto. Riscos longos, como se algo tivesse sido arrastado por quilômetros. Ele seguiu os riscos até eles desaparecerem dentro de uma parede de concreto sólida.</p></div></div>
+
+        <div class="book-page" id="p28"><span class="page-num">Página 28</span><div class="content"><p>Rely acordou chorando. "Ela está molhada, papai. Ela está com frio". Ethan sentou-se na cama e percebeu que seus próprios lençóis estavam encharcados de água salobra.</p></div></div>
+
+        <div class="book-page" id="p29"><span class="page-num">Página 29</span><div class="content"><p>A cidade começou a repetir lugares. Daniel passou pelo mesmo semáforo quebrado cinco vezes. Em cada vez, o retrovisor mostrava a silhueta da menina se aproximando mais do caminhão.</p></div></div>
+
+        <div class="book-page" id="p30"><span class="page-num">Página 30</span><div class="content"><p>Ethan e Daniel sentiram o chamado. Um peso no peito que apontava para o Norte. Para onde a neblina era tão densa que parecia sólida. Era hora de voltar para a estrada.</p></div></div>
+
+        <!-- PÁGINAS 31 A 40: O HORROR SE TORNA FÍSICO -->
+        <div class="book-page" id="p31"><span class="page-num">Página 31</span><div class="content"><p>A neblina não caiu do céu. Ela subiu do chão. Daniel parou o caminhão. O arrastar começou. Um som metálico, pesado, vindo da escuridão à frente.</p></div></div>
+
+        <div class="book-page" id="p32"><span class="page-num">Página 32</span><div class="content"><p>Ethan viu as pessoas desaparecerem. As lojas estavam abertas, mas vazias. O asfalto começou a sangrar ferrugem. O mundo estava sendo substituído por algo mais doente.</p></div></div>
+
+        <div class="book-page" id="p33"><span class="page-num">Página 33</span><div class="content"><p>Daniel seguiu o som até um beco. Ele viu os pés. Pequenos, torcidos, puxando um fardo que parecia pesar toneladas. O Carregador estava ali. O monstro da sua omissão.</p></div></div>
+
+        <div class="book-page" id="p34"><span class="page-num">Página 34</span><div class="content"><p>Ethan entrou na escola vazia. As mochilas estavam jogadas. Marcas de água levavam até o banheiro. "Rely?", ele chamou. O choro que veio não era da sua filha.</p></div></div>
+
+        <div class="book-page" id="p35"><span class="page-num">Página 35</span><div class="content"><p>O Carregador se ergueu. Sem rosto. Pele costurada onde deveriam estar os olhos. Daniel tentou correr, mas seus pés pareciam colados ao asfalto. O monstro soluçou.</p></div></div>
+
+        <div class="book-page" id="p36"><span class="page-num">Página 36</span><div class="content"><p>Ethan abriu a cabine do banheiro. O espelho estava quebrado, mas nas rachaduras ele via a frase: POR QUE VOCÊ NÃO PAROU? O cheiro de ferro era insuportável.</p></div></div>
+
+        <div class="book-page" id="p37"><span class="page-num">Página 37</span><div class="content"><p>O monstro de Daniel deu um passo. O som de ossos quebrando ecoou. Daniel caiu de joelhos. "Eu não vi!", ele gritou. A criatura inclinou a cabeça, como se não acreditasse.</p></div></div>
+
+        <div class="book-page" id="p38"><span class="page-num">Página 38</span><div class="content"><p>Ethan viu o Julgador Afogado. Uma criatura feita de água e ferrugem. Ela não tinha mãos, apenas ganchos que lembravam o volante do seu carro na noite do acidente.</p></div></div>
+
+        <div class="book-page" id="p39"><span class="page-num">Página 39</span><div class="content"><p>Daniel correu. Mas a cada esquina, a estrada se dobrava. O Carregador era lento, mas estava sempre a dez metros de distância. O peso invisível batia no chão.</p></div></div>
+
+        <div class="book-page" id="p40"><span class="page-num">Página 40</span><div class="content"><p>Uma sirene tocou. Um som abafado, como se estivesse sob a água. Ethan caiu no chão do banheiro. A cidade estava mudando de novo. A realidade estava rasgando.</p></div></div>
+
+        <!-- PÁGINAS 41 A 50: O JULGAMENTO -->
+        <div class="book-page" id="p41"><span class="page-num">Página 41</span><div class="content"><p>A sirene vibrava nos dentes de Daniel. Ele se viu em frente a um memorial improvisado. Um sapato pequeno. Flores podres. "Aqui alguém foi esquecido".</p></div></div>
+
+        <div class="book-page" id="p42"><span class="page-num">Página 42</span><div class="content"><p>Ethan caminhou pela AVENIDA DA OMISSÃO. As casas tinham olhos. Ele sentia o julgamento em cada janela quebrada. O silêncio gritava seu nome.</p></div></div>
+
+        <div class="book-page" id="p43"><span class="page-num">Página 43</span><div class="content"><p>Daniel tocou no sapato infantil. No momento em que encostou, viu o rosto da menina. Não Alice. A outra. Aquela que ele deixou para trás na chuva.</p></div></div>
+
+        <div class="book-page" id="p44"><span class="page-num">Página 44</span><div class="content"><p>Ethan entrou no prédio do tribunal, mas lá dentro era uma réplica perfeita da estrada. O juiz não era um homem, era o reflexo de Ethan no espelho, segurando o copo.</p></div></div>
+
+        <div class="book-page" id="p45"><span class="page-num">Página 45</span><div class="content"><p>Eles se encontraram. Daniel e Ethan. No centro da cidade fantasma. "Você estava lá", disse Daniel. Ethan não negou. A culpa era o único elo entre eles.</p></div></div>
+
+        <div class="book-page" id="p46"><span class="page-num">Página 46</span><div class="content"><p>O tribunal de Ethan desmoronou. As paredes descascaram como pele. "Você poderia ter parado", a voz de Marta ecoou, mas ela não estava lá.</p></div></div>
+
+        <div class="book-page" id="p47"><span class="page-num">Página 47</span><div class="content"><p>Alice acordou gritando que o homem que foi embora estava lá. Marcia sentiu o ar ficar pesado e úmido. O segredo estava se materializando na sala de estar.</p></div></div>
+
+        <div class="book-page" id="p48"><span class="page-num">Página 48</span><div class="content"><p>Rely desenhou a menina de novo. Desta vez, ela tinha olhos. E eles estavam abertos. Olhando diretamente para Ethan através do papel.</p></div></div>
+
+        <div class="book-page" id="p49"><span class="page-num">Página 49</span><div class="content"><p>Daniel e Ethan pararam diante da neblina final. O som do metal batendo voltou. Eles estavam vivendo o acidente em loop, mas desta vez, eles eram o alvo.</p></div></div>
+
+        <div class="book-page" id="p50"><span class="page-num">Página 50</span><div class="content"><p>A cidade parou de respirar. O confronto final não foi com monstros, mas com a memória. Eles viram a menina. Ela não estava brava. Estava apenas esperando.</p></div></div>
+
+        <!-- PÁGINAS 51 A 60: O RETORNO -->
+        <div class="book-page" id="p51"><span class="page-num">Página 51</span><div class="content"><p>O silêncio entre eles era insuportável. Daniel olhou para as mãos. Elas estavam cobertas de ferrugem. Ethan sentia a água subindo em seus pulmões.</p></div></div>
+
+        <div class="book-page" id="p52"><span class="page-num">Página 52</span><div class="content"><p>A sirene parou. O mundo pareceu perder o equilíbrio. Daniel deu um passo em direção à silhueta da menina. "Desculpa", ele sussurrou. A neblina estremeceu.</p></div></div>
+
+        <div class="book-page" id="p53"><span class="page-num">Página 53</span><div class="content"><p>O asfalto rachou. Por baixo dele, não havia terra, mas um oceano de memórias esquecidas. Ethan viu todas as vezes que mentiu para si mesmo.</p></div></div>
+
+        <div class="book-page" id="p54"><span class="page-num">Página 54</span><div class="content"><p>A menininha estendeu a mão. Ela não tinha rosto, era apenas uma ausência. Uma lacuna na história que eles tentaram fechar, mas que agora os engolia.</p></div></div>
+
+        <div class="book-page" id="p55"><span class="page-num">Página 55</span><div class="content"><p>Eles sentiram o impacto novamente. Desta vez, a dor foi real. O gosto de sangue e álcool se misturou. A estrada exigia o pagamento.</p></div></div>
+
+        <div class="book-page" id="p56"><span class="page-num">Página 56</span><div class="content"><p>Quando abriram os olhos, estavam de volta à estrada. Mas algo estava errado. A neblina não tinha ido embora. A cidade ainda estava observando.</p></div></div>
+
+        <div class="book-page" id="p57"><span class="page-num">Página 57</span><div class="content"><p>Daniel voltou para casa. Marcia não o reconheceu. Ele cheirava a metal e morte. "Você trouxe algo com você", ela disse, recuando para o quarto.</p></div></div>
+
+        <div class="book-page" id="p58"><span class="page-num">Página 58</span><div class="content"><p>Ethan chegou em casa e Rely estava acordada. Ela apontou para a sombra atrás dele. "Ela veio para ficar, papai". Ethan olhou no espelho e não viu seu rosto.</p></div></div>
+
+        <div class="book-page" id="p59"><span class="page-num">Página 59</span><div class="content"><p>A estrada não queria lembrança. Ela queria retorno. Daniel e Ethan sabiam que o primeiro volume tinha acabado, mas a estrada… ela apenas começou.</p></div></div>
+
+        <div class="book-page" id="p60"><span class="page-num">Página 60</span><div class="content">
+            <p>O sol nunca nasceu naquela manhã. A neblina se tornou o novo céu. Eles estavam na estrada que não para. E em algum lugar, a menina começou a rir.</p>
+            <span class="italic-phrase">FIM DO VOLUME I</span>
+            <center><button class="glitch-hover" onclick="location.reload()" style="background:none; border:1px solid var(--rust); color:var(--rust); padding:10px 20px; font-family:serif;">SAIR DA CIDADE</button></center>
+        </div></div>
+
+    </main>
+
+    <script>
+        // Efeito de revelação no scroll (ScrollReveal manual)
+        const pages = document.querySelectorAll('.book-page');
+        const progress = document.getElementById('scrollProgress');
+
+        const observerOptions = {
+            threshold: 0.1
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('revealed');
+                    const pageId = entry.target.id.replace('p', '');
+                    if(pageId) progress.innerText = `PÁGINA ${pageId} — VOLUME I`;
+                }
+            });
+        }, observerOptions);
+
+        pages.forEach(page => observer.observe(page));
+
+        // Ruído visual aleatório
+        setInterval(() => {
+            if(Math.random() > 0.95) {
+                document.body.style.filter = 'invert(0.1) contrast(1.1)';
+                setTimeout(() => document.body.style.filter = 'none', 50);
+            }
+        }, 2000);
+    </script>
+</body>
+</html>
